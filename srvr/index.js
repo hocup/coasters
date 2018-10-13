@@ -1,3 +1,6 @@
+#!/usr/bin/env node
+"use strict";
+
 const express = require('express')
 const app = express()
 const port = 3019

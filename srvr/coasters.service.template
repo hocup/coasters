@@ -1,0 +1,20 @@
+[Unit]
+Description=Coaster Web App
+
+[Service]
+# Change the ExecStart and WorkingDirectory below to point to installation
+ExecStart=/var/www/coasters/srvr/index.js
+Restart=always
+User=nobody
+# For group, either "nobody" for RHEL/Fedora or "nogroup" for ubuntu
+Group=nobody
+Environment=PATH=/usr/bin:/usr/local/bin
+Environment=NODE_ENV=production
+Environment=COASTERS_DB_HOST=localhost
+Environment=COASTERS_DB_UNAME=root
+Environment=COASTERS_DB_PWD=root
+Environment=COASTERS_DB_DB=coasters_db
+WorkingDirectory=/var/www/coasters/srvr/
+
+[Install]
+WantedBy=multi-user.target

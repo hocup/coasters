@@ -1,0 +1,8 @@
+Make a non-template copy of coasters.service.template
+Copy coasters.service into /etc/systemd/system
+Make systemd aware of new service:
+  systemctl daemon-reload
+Start the service:
+  systemctl start coasters
+Read logs:
+  journalctl --follow -u coasters

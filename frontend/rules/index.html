@@ -1,0 +1,20 @@
+<html>
+    <head>
+        <title>Coaster Game Rules</title>
+        <link href="../main.css" type="text/css" rel="stylesheet" />
+    </head>
+    <body>
+        <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+        <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+        <script src="/MainApp.js"></script>
+
+        <h1>Rules Of The Coaster Game</h1>
+        <div id="main_app_container"></div>
+        
+        <script>
+            const e = React.createElement;
+            const domContainer = document.getElementById('main_app_container');
+            ReactDOM.render(e(MainApp), domContainer);
+        </script>
+    </body>
+</html>

@@ -118,33 +118,34 @@ app.post('/api/rules', (req, res) => {
   const desc = req.body.desc;
   const rules = req.body.rules;
 
-
-
-  pool.query(
-    `
-      INSERT INTO rulesets (
-        \`name\`,
-        \`email\`,
-        \`website\`,
-        \`game_name\`,
-        \`desc\`,
-        \`rules\`,
-        \`website_approved\`,
-        \`url\`
-      ) VALUES (
-        ?,?,?,?,?,?,?,?
+  getUrl().then(
+    (url) => {
+      pool.query(
+        `
+          INSERT INTO rulesets (
+            \`name\`,
+            \`email\`,
+            \`website\`,
+            \`game_name\`,
+            \`desc\`,
+            \`rules\`,
+            \`website_approved\`,
+            \`url\`
+          ) VALUES (
+            ?,?,?,?,?,?,?,?
+          );
+        `,[name, email,website,game_name,desc,rules, false, url] ,(err, result) => {
+          if(err) {
+            res.status(500);
+            res.send("Database error has prevented the request from completing");
+          } else {
+            // res.send("OH BOY, RULES ADDED");
+            res.redirect('/rules/?ruleset=' + url);
+          }
+        }
       );
-    `,[name, email,website,game_name,desc,rules, false, "potato"] ,(err, result) => {
-      if(err) {
-        res.status(500);
-        res.send("Database error has prevented the request from completing");
-      } else {
-        res.send("OH BOY, RULES ADDED");
-        // res.redirect('/rules/?ruleset=' + url);
-      }
     }
   );
-  
 });
 
 app.get('/api/rules', (req, res) => {
@@ -164,7 +165,7 @@ app.get('/api/rules', (req, res) => {
 
     `SELECT \`name\`, \`url\`, \`website\`, \`website_approved\`, \`game_name\`, \`desc\`, \`email\` FROM \`rulesets\`;`,(err, result) => {
       if(err) {
-        console.log(err);
+        res.status(500);
         res.send("oh no");
       } else {
         res.set('Cache-Control', 'no-cache, no-store, must-revalidate');
@@ -174,8 +175,41 @@ app.get('/api/rules', (req, res) => {
   )
 });
 
-app.get('/api/rules/:rulesetid', (req, res) => {
+app.get('/api/rules/:ruleseturl', (req, res) => {
   // TODO: Get specific ruleset
+  console.log(req.params);
+  pool.query(
+    `SELECT * FROM \`rulesets\` WHERE url=?;`, [req.params.ruleseturl], (err, result) => {
+      if(err) {
+        res.status(500);
+        res.send("oh no");
+        return;
+      }
+
+      if(result.length) {
+        res.send(JSON.stringify(result[0]));
+      } else {
+        res.status(404);
+        res.send(JSON.stringify({}));
+      }
+      
+    }
+  )
+  
 });
 
-app.listen(port, () => console.log(`Coaster app listening on port ${port}!`))
+app.listen(port, () => console.log(`Coaster app listening on port ${port}!`));
+
+function getUrl() {
+  return new Promise((resolve, reject) => {
+    //TODO: Improve!
+
+    let alphabet="abcdefghijklmnopqrstuvwxyz";
+    let url = "";
+    for(let i = 0; i < 6; i++) {
+      url += alphabet.substr(Math.floor(Math.random()*alphabet.length), 1);
+    }
+
+    resolve(url);
+  });
+}

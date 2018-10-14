@@ -49,7 +49,7 @@ pool.query(
     \`name\` VARCHAR(120) NULL,
     \`website\` VARCHAR(240) NULL,
     \`website_approved\` TINYINT NULL,
-    \`rules_name\` VARCHAR(400) NULL,
+    \`game_name\` VARCHAR(400) NULL,
     \`desc\` VARCHAR(400) NULL,
     \`rules\` VARCHAR(10000) NULL,
     \`email\` VARCHAR(450) NULL,
@@ -109,11 +109,69 @@ app.post('/email', (req, res) => {
 
 app.post('/api/rules', (req, res) => {
   // TODO: Add new rules!
+  
+  const name = req.body.name;
+  const email = req.body.email;
+  const website = req.body.website;
+
   const game_name = req.body.game_name;
+  const desc = req.body.desc;
+  const rules = req.body.rules;
+
+
+
+  pool.query(
+    `
+      INSERT INTO rulesets (
+        \`name\`,
+        \`email\`,
+        \`website\`,
+        \`game_name\`,
+        \`desc\`,
+        \`rules\`,
+        \`website_approved\`,
+        \`url\`
+      ) VALUES (
+        ?,?,?,?,?,?,?,?
+      );
+    `,[name, email,website,game_name,desc,rules, false, "potato"] ,(err, result) => {
+      if(err) {
+        res.status(500);
+        res.send("Database error has prevented the request from completing");
+      } else {
+        res.send("OH BOY, RULES ADDED");
+        // res.redirect('/rules/?ruleset=' + url);
+      }
+    }
+  );
+  
 });
 
 app.get('/api/rules', (req, res) => {
   // TODO: Get list of rules
+  pool.query(
+    /*
+     \`id\` INT NOT NULL AUTO_INCREMENT,
+    \`url\` VARCHAR(120) NULL,
+    \`name\` VARCHAR(120) NULL,
+    \`website\` VARCHAR(240) NULL,
+    \`website_approved\` TINYINT NULL,
+    \`game_name\` VARCHAR(400) NULL,
+    \`desc\` VARCHAR(400) NULL,
+    \`rules\` VARCHAR(10000) NULL,
+    \`email\` VARCHAR(450) NULL,
+    */
+
+    `SELECT \`name\`, \`url\`, \`website\`, \`website_approved\`, \`game_name\`, \`desc\`, \`email\` FROM \`rulesets\`;`,(err, result) => {
+      if(err) {
+        console.log(err);
+        res.send("oh no");
+      } else {
+        res.set('Cache-Control', 'no-cache, no-store, must-revalidate');
+        res.send(JSON.stringify(result));
+      }
+    }
+  )
 });
 
 app.get('/api/rules/:rulesetid', (req, res) => {

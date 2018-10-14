@@ -8,8 +8,15 @@
         <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
         <script src="https://unpkg.com/react-markdown@4.0.3/umd/react-markdown.js" crossorigin></script>
         
+        <script src="../../RulesAddForm.js"></script>
 
-        HELLO THERE
+        <div id="form-container"></div>
+
+        <script>
+            const e = React.createElement;
+            const domContainer = document.getElementById('form-container');
+            ReactDOM.render(e(RulesAddForm), domContainer);
+        </script>
 
     </body>
 </html>

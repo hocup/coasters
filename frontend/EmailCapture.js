@@ -1,5 +1,3 @@
-'use strict';
-
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -8,49 +6,44 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var MainApp = function (_React$Component) {
-  _inherits(MainApp, _React$Component);
+var EmailCapture = function (_React$Component) {
+    _inherits(EmailCapture, _React$Component);
 
-  function MainApp(props) {
-    _classCallCheck(this, MainApp);
+    function EmailCapture() {
+        _classCallCheck(this, EmailCapture);
 
-    var _this = _possibleConstructorReturn(this, (MainApp.__proto__ || Object.getPrototypeOf(MainApp)).call(this, props));
-
-    _this.state = { list: true };
-
-    console.log("Getting list maybe");
-
-    _this.getList().then(function (response) {
-      console.log(response.data);
-      _this.setState({ list: false });;
-      // this.forceUpdate();
-    });
-    return _this;
-  }
-
-  _createClass(MainApp, [{
-    key: 'render',
-    value: function render() {
-      var _this2 = this;
-
-      if (this.state.list) {
-        return 'List of links to rules';
-      }
-
-      return React.createElement(
-        'button',
-        { onClick: function onClick() {
-            return _this2.setState({ list: true });
-          } },
-        'Like'
-      );
+        return _possibleConstructorReturn(this, (EmailCapture.__proto__ || Object.getPrototypeOf(EmailCapture)).apply(this, arguments));
     }
-  }, {
-    key: 'getList',
-    value: function getList() {
-      return axios.get('/api/rules');
-    }
-  }]);
 
-  return MainApp;
+    _createClass(EmailCapture, [{
+        key: "render",
+        value: function render() {
+            return React.createElement(
+                "div",
+                null,
+                React.createElement(
+                    "div",
+                    null,
+                    "Hello WORLD!"
+                ),
+                React.createElement(
+                    "div",
+                    null,
+                    React.createElement(
+                        "form",
+                        { method: "post", action: "/email" },
+                        React.createElement(
+                            "label",
+                            { htmlFor: "email" },
+                            "Email: "
+                        ),
+                        React.createElement("input", { id: "email", type: "text", name: "email" }),
+                        React.createElement("input", { type: "submit", value: "Submit" })
+                    )
+                )
+            );
+        }
+    }]);
+
+    return EmailCapture;
 }(React.Component);

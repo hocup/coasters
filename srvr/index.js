@@ -109,6 +109,7 @@ app.post('/email', (req, res) => {
 
 app.post('/api/rules', (req, res) => {
   // TODO: Add new rules!
+  const game_name = req.body.game_name;
 });
 
 app.get('/api/rules', (req, res) => {

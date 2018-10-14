@@ -16,39 +16,115 @@ var MainApp = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (MainApp.__proto__ || Object.getPrototypeOf(MainApp)).call(this, props));
 
-    _this.state = { list: true };
+    _this.state = { list: true, rules: [], ruleset: null };
 
-    console.log("Getting list maybe");
-
-    _this.getList().then(function (response) {
-      console.log(response.data);
-      _this.setState({ list: false });;
-      // this.forceUpdate();
-    });
+    console.log("Getting list maybe", window.location);
+    var rulesUrlRegEx = /\?ruleset=(.*)$/;
+    console.log(rulesUrlRegEx.exec(window.location));
+    var rulesUrl = rulesUrlRegEx.exec(window.location);
+    if (rulesUrl) {
+      _this.state.list = false;
+      _this.getRuleset(rulesUrl[1]).then(function (response) {
+        console.log(response.data);
+        _this.setState({ ruleset: response.data });
+      });
+    } else {
+      _this.getList().then(function (response) {
+        console.log("DATA", response.data);
+        // this.setState( {list:false});
+        _this.setState({ rules: response.data });
+        // this.forceUpdate();
+      });
+    }
     return _this;
   }
 
   _createClass(MainApp, [{
-    key: 'render',
+    key: "render",
     value: function render() {
-      var _this2 = this;
-
       if (this.state.list) {
-        return 'List of links to rules';
+        return React.createElement(
+          "div",
+          null,
+          React.createElement(
+            "p",
+            null,
+            "The coaster game isn't really a game yet. It doesn't come with any rules, just a few materials to get your brain going. So go ahead, punch out the tokens and invent your own game. Then, ",
+            React.createElement(
+              "a",
+              { href: "/rules/add" },
+              "go here to publish your rules"
+            ),
+            ". "
+          ),
+          React.createElement(
+            "p",
+            null,
+            "Or, check out the competition below:"
+          ),
+          React.createElement(
+            "ul",
+            null,
+            this.state.rules.map(function (r, i) {
+              return React.createElement(RulesListItem, { rules: r, key: i });
+            })
+          )
+        );
+      }
+
+      if (this.state.ruleset) {
+        if (!this.state.ruleset.name) {
+          this.state.ruleset.name = "Unknown";
+        }
+        var authorName = this.state.ruleset.website_approved ? React.createElement(
+          "a",
+          { href: this.state.ruleset.website },
+          this.state.ruleset.name
+        ) : React.createElement(
+          "span",
+          null,
+          " ",
+          this.state.ruleset.name,
+          " "
+        );
+        return React.createElement(
+          "div",
+          null,
+          React.createElement(
+            "h2",
+            null,
+            this.state.ruleset.game_name
+          ),
+          React.createElement(
+            "h3",
+            null,
+            "By ",
+            authorName
+          ),
+          React.createElement(
+            "p",
+            null,
+            this.state.ruleset.desc
+          ),
+          React.createElement(ReactMarkdown, { source: this.state.ruleset.rules })
+        );
       }
 
       return React.createElement(
-        'button',
-        { onClick: function onClick() {
-            return _this2.setState({ list: true });
-          } },
-        'Like'
+        "div",
+        null,
+        "Loading..."
       );
     }
   }, {
-    key: 'getList',
+    key: "getList",
     value: function getList() {
       return axios.get('/api/rules');
+    }
+  }, {
+    key: "getRuleset",
+    value: function getRuleset(url) {
+      return axios.get('/api/rules/' + url);
     }
   }]);
 

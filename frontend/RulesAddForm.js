@@ -52,40 +52,40 @@ var RulesAddForm = function (_React$Component) {
                 React.createElement(
                     "p",
                     null,
-                    "Some ideas I haven't thought through:",
+                    "Some ideas I haven't thought through:"
+                ),
+                React.createElement(
+                    "ul",
+                    null,
                     React.createElement(
-                        "ul",
+                        "li",
                         null,
-                        React.createElement(
-                            "li",
-                            null,
-                            "Make a wargame!"
-                        ),
-                        React.createElement(
-                            "li",
-                            null,
-                            "Group up with someone else with a set of coasters, for more play area and more tokens"
-                        ),
-                        React.createElement(
-                            "li",
-                            null,
-                            "Trace the edges of the coasters onto paper, for an even bigger play area"
-                        ),
-                        React.createElement(
-                            "li",
-                            null,
-                            "Use the punchable tokens instead of dice by flipping the numbered ones upside down and picking one at random"
-                        ),
-                        React.createElement(
-                            "li",
-                            null,
-                            "Use the coasters to hold the drinks involved in your version of Brett Kavanaugh's original game \"The Devils Triangle\""
-                        ),
-                        React.createElement(
-                            "li",
-                            null,
-                            "Draw on the play area coasters! Flip the tokens over and draw on those too!"
-                        )
+                        "Group up with someone else with a set of coasters, for more play area and more tokens"
+                    ),
+                    React.createElement(
+                        "li",
+                        null,
+                        "Trace the edges of the coasters onto paper, for an even bigger play area"
+                    ),
+                    React.createElement(
+                        "li",
+                        null,
+                        "Use the punchable tokens instead of dice by flipping the numbered ones upside down and picking one at random"
+                    ),
+                    React.createElement(
+                        "li",
+                        null,
+                        "Use the coasters to hold the drinks involved in your idea of what Brett Kavanaugh's original drinking game \"The Devils Triangle\" might be like"
+                    ),
+                    React.createElement(
+                        "li",
+                        null,
+                        "Draw on the play area coasters! Flip the tokens over and draw on those too!"
+                    ),
+                    React.createElement(
+                        "li",
+                        null,
+                        "Flick the tokens across the table for a neat kinetic game"
                     )
                 ),
                 React.createElement(

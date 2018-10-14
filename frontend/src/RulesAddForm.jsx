@@ -16,16 +16,16 @@ class RulesAddForm extends React.Component {
               All fields other than your email will be public. The email is gathered on the off chance I add the ability to edit your published rule sets. Consider using <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet">markdown</a> in the main rules area for better formatting.
           </p>
           <p>
-              Some ideas I haven't thought through:
-              <ul>
-                  <li>Make a wargame!</li>
-                  <li>Group up with someone else with a set of coasters, for more play area and more tokens</li>
-                  <li>Trace the edges of the coasters onto paper, for an even bigger play area</li>
-                  <li>Use the punchable tokens instead of dice by flipping the numbered ones upside down and picking one at random</li> 
-                  <li>Use the coasters to hold the drinks involved in your version of Brett Kavanaugh's original game "The Devils Triangle"</li>
-                  <li>Draw on the play area coasters! Flip the tokens over and draw on those too!</li>
-              </ul>
+              Some ideas I haven't thought through: 
           </p>
+          <ul>
+            <li>Group up with someone else with a set of coasters, for more play area and more tokens</li>
+            <li>Trace the edges of the coasters onto paper, for an even bigger play area</li>
+            <li>Use the punchable tokens instead of dice by flipping the numbered ones upside down and picking one at random</li> 
+            <li>Use the coasters to hold the drinks involved in your idea of what Brett Kavanaugh's original drinking game "The Devils Triangle" might be like</li>
+            <li>Draw on the play area coasters! Flip the tokens over and draw on those too!</li>
+            <li>Flick the tokens across the table for a neat kinetic game</li>
+        </ul>
 
         <form method="post" action="/api/rules">
             <label html-for="name">Your Name: </label><input type="text" name="name"></input>

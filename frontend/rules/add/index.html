@@ -1,7 +1,9 @@
 <html>
     <head>
         <title>Add New Ruleset</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="../../main.css" type="text/css" rel="stylesheet" />
+        <link rel="stylesheet" href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css"/>
     </head>
     <body>
         <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
@@ -10,8 +12,9 @@
         
         <script src="../../RulesAddForm.js"></script>
 
-        <div id="form-container"></div>
-
+        
+        <div id="form-container" class="center pa3 measure-wide"></div>
+        
         <script>
             const e = React.createElement;
             const domContainer = document.getElementById('form-container');

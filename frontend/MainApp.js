@@ -18,22 +18,16 @@ var MainApp = function (_React$Component) {
 
     _this.state = { list: true, rules: [], ruleset: null };
 
-    console.log("Getting list maybe", window.location);
     var rulesUrlRegEx = /\?ruleset=(.*)$/;
-    console.log(rulesUrlRegEx.exec(window.location));
     var rulesUrl = rulesUrlRegEx.exec(window.location);
     if (rulesUrl) {
       _this.state.list = false;
       _this.getRuleset(rulesUrl[1]).then(function (response) {
-        console.log(response.data);
         _this.setState({ ruleset: response.data });
       });
     } else {
       _this.getList().then(function (response) {
-        console.log("DATA", response.data);
-        // this.setState( {list:false});
         _this.setState({ rules: response.data });
-        // this.forceUpdate();
       });
     }
     return _this;
@@ -46,6 +40,11 @@ var MainApp = function (_React$Component) {
         return React.createElement(
           "div",
           null,
+          React.createElement(
+            "h1",
+            null,
+            "Rules Of The Coaster Game"
+          ),
           React.createElement(
             "p",
             null,
@@ -91,7 +90,7 @@ var MainApp = function (_React$Component) {
           "div",
           null,
           React.createElement(
-            "h2",
+            "h1",
             null,
             this.state.ruleset.game_name
           ),
@@ -113,7 +112,7 @@ var MainApp = function (_React$Component) {
       return React.createElement(
         "div",
         null,
-        "Loading..."
+        "Loading Rules..."
       );
     }
   }, {

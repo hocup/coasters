@@ -3,6 +3,9 @@
 class RulesAddForm extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = {rulesMd: 
+"# Main rules go here\nFormatting handled through markdown, so go wild!"}
   }
 
   render() {
@@ -38,10 +41,20 @@ class RulesAddForm extends React.Component {
             <br/>
             <label html-for="desc">Game Description: </label><input type="text" name="desc"></input>
             <br/>
-            <label html-for="rules">*The Game's Rules: </label><textarea name="rules" required></textarea>
+            <label html-for="rules">*The Game's Rules: </label><textarea name="rules" required value={this.state.rulesMd} onChange={(evt) => this.updateRulesText(evt)}></textarea>
             <br/>
             <input type="submit" value="Publish Rules"></input>
         </form>
+        <div>
+            <h2>Rules Preview:</h2>
+            <div class="ba b--dashed">
+                <ReactMarkdown source={this.state.rulesMd} />
+            </div>
+        </div>
       </div>)
   };
+
+  updateRulesText(event) {
+      this.setState({rulesMd: event.target.value});
+  }
 };

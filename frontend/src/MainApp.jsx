@@ -5,25 +5,19 @@ class MainApp extends React.Component {
     super(props);
     this.state = { list: true, rules: [], ruleset: null };
 
-    console.log("Getting list maybe", window.location);
     const rulesUrlRegEx = /\?ruleset=(.*)$/;
-    console.log(rulesUrlRegEx.exec(window.location));
     const rulesUrl = rulesUrlRegEx.exec(window.location);
     if(rulesUrl) {
       this.state.list = false;
       this.getRuleset(rulesUrl[1]).then(
         (response) => {
-          console.log(response.data)
           this.setState({ruleset: response.data});
         }
       );
     } else {
       this.getList().then(
         (response) => {
-          console.log("DATA",response.data);
-          // this.setState( {list:false});
           this.setState({rules: response.data});
-          // this.forceUpdate();
         }
       );
     }
@@ -33,6 +27,7 @@ class MainApp extends React.Component {
     if (this.state.list) {
       return (
         <div>
+          <h1>Rules Of The Coaster Game</h1>
           <p>The coaster game isn't really a game yet. It doesn't come with any rules, just a few materials to get your brain going. So go ahead, punch out the tokens and invent your own game. Then, <a href="/rules/add">go here to publish your rules</a>. </p>
           <p>Or, check out the competition below:</p>
           <ul>  
@@ -49,7 +44,7 @@ class MainApp extends React.Component {
       const authorName = this.state.ruleset.website_approved ? <a href={this.state.ruleset.website}>{this.state.ruleset.name}</a> : <span> {this.state.ruleset.name} </span>;
       return (
         <div>
-          <h2>{this.state.ruleset.game_name}</h2>
+          <h1>{this.state.ruleset.game_name}</h1>
           <h3>By {authorName}</h3>
           <p>{this.state.ruleset.desc}</p>
           <ReactMarkdown source={this.state.ruleset.rules} />
@@ -58,7 +53,7 @@ class MainApp extends React.Component {
     }
 
     return (
-      <div>Loading...</div>
+      <div>Loading Rules...</div>
     );
   }
 

@@ -14,12 +14,17 @@ var RulesAddForm = function (_React$Component) {
     function RulesAddForm(props) {
         _classCallCheck(this, RulesAddForm);
 
-        return _possibleConstructorReturn(this, (RulesAddForm.__proto__ || Object.getPrototypeOf(RulesAddForm)).call(this, props));
+        var _this = _possibleConstructorReturn(this, (RulesAddForm.__proto__ || Object.getPrototypeOf(RulesAddForm)).call(this, props));
+
+        _this.state = { rulesMd: "# Main rules go here\nFormatting handled through markdown, so go wild!" };
+        return _this;
     }
 
     _createClass(RulesAddForm, [{
         key: "render",
         value: function render() {
+            var _this2 = this;
+
             return React.createElement(
                 "div",
                 null,
@@ -131,11 +136,32 @@ var RulesAddForm = function (_React$Component) {
                         { "html-for": "rules" },
                         "*The Game's Rules: "
                     ),
-                    React.createElement("textarea", { name: "rules", required: true }),
+                    React.createElement("textarea", { name: "rules", required: true, value: this.state.rulesMd, onChange: function onChange(evt) {
+                            return _this2.updateRulesText(evt);
+                        } }),
                     React.createElement("br", null),
                     React.createElement("input", { type: "submit", value: "Publish Rules" })
+                ),
+                React.createElement(
+                    "div",
+                    null,
+                    React.createElement(
+                        "h2",
+                        null,
+                        "Rules Preview:"
+                    ),
+                    React.createElement(
+                        "div",
+                        { "class": "ba b--dashed" },
+                        React.createElement(ReactMarkdown, { source: this.state.rulesMd })
+                    )
                 )
             );
+        }
+    }, {
+        key: "updateRulesText",
+        value: function updateRulesText(event) {
+            this.setState({ rulesMd: event.target.value });
         }
     }]);
 
